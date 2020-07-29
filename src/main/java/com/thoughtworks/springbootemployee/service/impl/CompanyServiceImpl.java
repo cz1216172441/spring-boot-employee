@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.service.impl;
 
 import com.thoughtworks.springbootemployee.entity.Company;
+import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.CompanyIdNotFoundException;
 import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
@@ -56,6 +57,8 @@ public class CompanyServiceImpl implements CompanyService {
         return companyRepository.findAll(pageable);
     }
 
-
-
+    @Override
+    public List<Employee> getEmployeesFromCompany(Integer id) throws CompanyNotFoundException {
+        return this.getCompanyById(id).getEmployees();
+    }
 }

@@ -54,4 +54,9 @@ public class CompanyController {
         return companyService.getPagingCompanies(pageable);
     }
 
+    @GetMapping("/{id}/employees")
+    public List<Employee> getEmployeesFromCompany(@PathVariable Integer id) throws CompanyNotFoundException {
+        return companyService.getEmployeesFromCompany(id);
+    }
+
 }
