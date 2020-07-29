@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.service.impl;
 
 import com.thoughtworks.springbootemployee.entity.Company;
+import com.thoughtworks.springbootemployee.exception.CompanyIdNotFoundException;
 import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.service.CompanyService;
@@ -31,6 +32,14 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void addCompany(Company company) {
+        companyRepository.save(company);
+    }
+
+    @Override
+    public void modify(Company company) throws CompanyIdNotFoundException {
+        if (company.getCompanyId() == null) {
+            throw new CompanyIdNotFoundException();
+        }
         companyRepository.save(company);
     }
 }

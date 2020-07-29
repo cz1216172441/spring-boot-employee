@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.entity.Company;
+import com.thoughtworks.springbootemployee.exception.CompanyIdNotFoundException;
 import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
 import com.thoughtworks.springbootemployee.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,11 @@ public class CompanyController {
     @PostMapping
     public void addCompany(Company company){
         companyService.addCompany(company);
+    }
+
+    @PutMapping
+    public void modifyCompany(Company company) throws CompanyIdNotFoundException {
+        companyService.modify(company);
     }
 
 }
