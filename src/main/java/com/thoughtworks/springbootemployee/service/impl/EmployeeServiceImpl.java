@@ -48,4 +48,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         employeeRepository.save(employee);
     }
+
+    @Override
+    public List<Employee> getEmployeeByGender(String gender) {
+        return employeeRepository.findByGender(gender);
+    }
 }

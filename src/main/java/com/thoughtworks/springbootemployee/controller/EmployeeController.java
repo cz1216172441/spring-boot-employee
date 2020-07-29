@@ -30,6 +30,11 @@ public class EmployeeController {
         return employeeService.getEmployeeById(id);
     }
 
+    @GetMapping(params = "gender")
+    public List<Employee> getEmployeeByGender(String gender) {
+        return employeeService.getEmployeeByGender(gender);
+    }
+
     @PostMapping
     public void addEmployee(Employee employee) {
         employeeService.addEmployee(employee);
