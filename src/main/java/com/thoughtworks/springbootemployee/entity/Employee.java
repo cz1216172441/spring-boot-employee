@@ -39,4 +39,7 @@ public class Employee {
         return gender;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

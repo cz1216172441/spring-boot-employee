@@ -13,6 +13,14 @@ public class Company {
 
     private String name;
 
+    public Company(Integer companyId) {
+        this.companyId = companyId;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
     @OneToMany(mappedBy = "company")
     private List<Employee> employees;
 }
