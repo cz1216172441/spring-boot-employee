@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.entity.Employee;
+import com.thoughtworks.springbootemployee.exception.EmployeeIdNotFoundException;
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,14 @@ public class EmployeeController {
         employeeService.addEmployee(employee);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteEmployee(@PathVariable Integer id) {
+        employeeService.deleteEmployee(id);
+    }
+
+    @PutMapping
+    public void modifyEmployee(Employee employee) throws EmployeeIdNotFoundException {
+        employeeService.modifyEmployee(employee);
+    }
 
 }
