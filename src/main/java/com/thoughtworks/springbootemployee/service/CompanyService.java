@@ -15,4 +15,6 @@ public interface CompanyService {
     void addCompany(Company company);
 
     void modify(Company company) throws CompanyIdNotFoundException;
+
+    void deleteCompany(Integer id);
 }

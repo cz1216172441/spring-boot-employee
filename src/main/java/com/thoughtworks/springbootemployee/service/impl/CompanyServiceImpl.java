@@ -42,4 +42,9 @@ public class CompanyServiceImpl implements CompanyService {
         }
         companyRepository.save(company);
     }
+
+    @Override
+    public void deleteCompany(Integer id) {
+        companyRepository.deleteById(id);
+    }
 }
