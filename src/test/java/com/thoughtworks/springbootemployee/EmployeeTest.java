@@ -26,7 +26,7 @@ public class EmployeeTest {
     private EmployeeServiceImpl employeeService;
 
     @Test
-    void should_return_a_employee_when_get_employee_given_a_employee() {
+    void should_return_a_employee_when_get_employee_given_a_employee() throws EmployeeNotFoundException {
         // given
         Integer id = 1;
         Employee employee = new Employee();
