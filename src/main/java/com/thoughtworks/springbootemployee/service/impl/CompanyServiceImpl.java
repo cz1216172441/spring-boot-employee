@@ -6,6 +6,8 @@ import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,4 +49,13 @@ public class CompanyServiceImpl implements CompanyService {
     public void deleteCompany(Integer id) {
         companyRepository.deleteById(id);
     }
+
+    @Override
+    public Page<Company> getPagingCompanies(Pageable pageable){
+
+        return companyRepository.findAll(pageable);
+    }
+
+
+
 }

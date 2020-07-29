@@ -1,10 +1,14 @@
 package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.entity.Company;
+import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.CompanyIdNotFoundException;
 import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
 import com.thoughtworks.springbootemployee.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,6 +47,11 @@ public class CompanyController {
     @DeleteMapping("/{id}")
     public void deleteCompany(@PathVariable Integer id){
         companyService.deleteCompany(id);
+    }
+
+    @GetMapping(params = {"page", "size"})
+    public Page<Company> getPagingCompanies(@PageableDefault Pageable pageable) {
+        return companyService.getPagingCompanies(pageable);
     }
 
 }
