@@ -6,6 +6,8 @@ import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,5 +54,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> getEmployeeByGender(String gender) {
         return employeeRepository.findByGender(gender);
+    }
+
+    @Override
+    public Page<Employee> getPagingEmployees(Pageable pageable) {
+        return employeeRepository.findAll(pageable);
     }
 }

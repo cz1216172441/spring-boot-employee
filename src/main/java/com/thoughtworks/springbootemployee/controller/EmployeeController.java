@@ -5,6 +5,9 @@ import com.thoughtworks.springbootemployee.exception.EmployeeIdNotFoundException
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +36,11 @@ public class EmployeeController {
     @GetMapping(params = "gender")
     public List<Employee> getEmployeeByGender(String gender) {
         return employeeService.getEmployeeByGender(gender);
+    }
+
+    @GetMapping(params = {"page", "size"})
+    public Page<Employee> getPagingEmployees(@PageableDefault Pageable pageable) {
+        return employeeService.getPagingEmployees(pageable);
     }
 
     @PostMapping
