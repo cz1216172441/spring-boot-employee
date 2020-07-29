@@ -27,6 +27,18 @@ public class Company {
         return name;
     }
 
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
     public List<Employee> getEmployees() {
         return employees;
     }

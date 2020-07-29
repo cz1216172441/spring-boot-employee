@@ -10,4 +10,6 @@ public interface CompanyService {
     List<Company> getAllCompany();
 
     Company getCompanyById(Integer id) throws CompanyNotFoundException;
+
+    void addCompany(Company company);
 }

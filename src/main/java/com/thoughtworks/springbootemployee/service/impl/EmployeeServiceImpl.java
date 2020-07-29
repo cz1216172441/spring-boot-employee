@@ -28,4 +28,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee getEmployeeById(Integer id) throws EmployeeNotFoundException {
         return employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
     }
+
+    @Override
+    public void addEmployee(Employee employee) {
+        employeeRepository.save(employee);
+    }
 }

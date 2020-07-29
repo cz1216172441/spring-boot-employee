@@ -10,4 +10,6 @@ public interface EmployeeService {
     List<Employee> getAllEmployees();
 
     Employee getEmployeeById(Integer id) throws EmployeeNotFoundException;
+
+    void addEmployee(Employee employee);
 }
