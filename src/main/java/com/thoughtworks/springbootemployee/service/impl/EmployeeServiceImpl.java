@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -56,11 +57,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void modifyEmployee(Employee employee) throws EmployeeIdNotFoundException {
-        if (Objects.isNull(employee.getId())) {
+    public void modifyEmployee(EmployeeRequestDto employeeRequestDto) throws EmployeeIdNotFoundException, CompanyNotFoundException, EmployeeNotFoundException {
+        if (Objects.isNull(employeeRequestDto.getId())) {
             throw new EmployeeIdNotFoundException();
         }
-        employeeRepository.save(employee);
+        Optional<Employee> employee = employeeRepository.findById(employeeRequestDto.getId());
+        if (employee.isPresent()) {
+            addEmployee(employeeRequestDto);
+        } else {
+            throw new EmployeeNotFoundException();
+        }
     }
 
     @Override

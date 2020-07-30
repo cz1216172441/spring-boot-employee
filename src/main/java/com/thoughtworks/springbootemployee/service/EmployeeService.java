@@ -20,7 +20,7 @@ public interface EmployeeService {
 
     void deleteEmployee(Integer id);
 
-    void modifyEmployee(Employee employee) throws EmployeeIdNotFoundException;
+    void modifyEmployee(EmployeeRequestDto employeeRequestDto) throws EmployeeIdNotFoundException, CompanyNotFoundException, EmployeeNotFoundException;
 
     List<Employee> getEmployeeByGender(String gender);
 

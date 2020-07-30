@@ -57,4 +57,15 @@ public class EmployeeRequestDto {
     public Employee toEntity() {
         return new Employee(this.id, this.name, this.age, this.gender);
     }
+
+    @Override
+    public String toString() {
+        return "EmployeeRequestDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", gender='" + gender + '\'' +
+                ", companyId=" + companyId +
+                '}';
+    }
 }
