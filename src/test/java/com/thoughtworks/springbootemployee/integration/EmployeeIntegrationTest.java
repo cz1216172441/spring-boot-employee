@@ -73,4 +73,17 @@ public class EmployeeIntegrationTest {
                 .andExpect(jsonPath("[0].name").value("roy"))
                 .andExpect(jsonPath("[1].name").value("max"));
     }
+
+    @Test
+    void should_return_1_employee_with_id_1_when_get_employee_by_id_given_employee_id_1() throws Exception {
+        //given
+        Company company = companyRepository.save(new Company(null, "tw"));
+        Employee employee = new Employee(null, "chengcheng", 18, "male");
+        employee.setCompany(company);
+        employeeRepository.save(employee);
+        //given
+        mockMvc.perform(get("/employees/1").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("name").value("chengcheng"));
+    }
 }
