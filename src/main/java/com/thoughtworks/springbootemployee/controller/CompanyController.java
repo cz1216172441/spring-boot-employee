@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public class CompanyController {
     }
 
     @PutMapping
-    public void modifyCompany(@RequestBody CompanyRequestDto companyRequestDto) throws CompanyNotFoundException {
+    public void modifyCompany(@RequestBody @Validated CompanyRequestDto companyRequestDto) throws CompanyNotFoundException {
         companyService.modify(companyRequestDto);
     }
 
