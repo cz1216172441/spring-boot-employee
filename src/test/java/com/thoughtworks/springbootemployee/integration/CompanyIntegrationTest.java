@@ -13,10 +13,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -74,5 +75,22 @@ public class CompanyIntegrationTest {
         mockMvc.perform(get("/companies/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("name").value("tw"));
+    }
+
+    @Test
+    void should_return_1_modified_company_when_modify_companies_given_1_company_and_1_company_request_dto() throws Exception {
+        //given
+        companyRepository.save(new Company(null, "tw"));
+        String jsonContent = "{\n" +
+                "    \"companyId\": 1,\n" +
+                "    \"name\": \"tw2\"\n" +
+                "}";
+        //when
+        mockMvc.perform(put("/companies").contentType(MediaType.APPLICATION_JSON).content(jsonContent))
+                .andExpect(status().isOk());
+        Company company = companyRepository.findById(1).orElse(null);
+        //then
+        assertNotNull(company);
+        assertEquals("tw2", company.getName());
     }
 }
