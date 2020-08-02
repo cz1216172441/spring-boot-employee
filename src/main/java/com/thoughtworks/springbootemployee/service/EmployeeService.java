@@ -2,7 +2,6 @@ package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.dto.EmployeeRequestDto;
 import com.thoughtworks.springbootemployee.dto.EmployeeResponseDto;
-import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import org.springframework.data.domain.Page;
