@@ -15,7 +15,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -53,5 +55,22 @@ public class EmployeeIntegrationTest {
         List<Employee> employees = employeeRepository.findAll();
         //then
         assertEquals(1, employees.size());
+    }
+
+    @Test
+    void should_return_2_employees_when_get_all_employees_given_2_employees_and_1_company() throws Exception {
+        //given
+        Company company = companyRepository.save(new Company(null, "tw"));
+        Employee employee1 = new Employee(null, "roy", 18, "male");
+        employee1.setCompany(company);
+        Employee employee2 = new Employee(null, "max", 18, "male");
+        employee2.setCompany(company);
+        employeeRepository.save(employee1);
+        employeeRepository.save(employee2);
+        //when
+        mockMvc.perform(get("/employees").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("[0].name").value("roy"))
+                .andExpect(jsonPath("[1].name").value("max"));
     }
 }
