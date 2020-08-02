@@ -3,7 +3,6 @@ package com.thoughtworks.springbootemployee.service;
 import com.thoughtworks.springbootemployee.dto.EmployeeRequestDto;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
-import com.thoughtworks.springbootemployee.exception.EmployeeIdNotFoundException;
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +19,7 @@ public interface EmployeeService {
 
     void deleteEmployee(Integer id);
 
-    void modifyEmployee(EmployeeRequestDto employeeRequestDto) throws EmployeeIdNotFoundException, CompanyNotFoundException, EmployeeNotFoundException;
+    void modifyEmployee(EmployeeRequestDto employeeRequestDto) throws CompanyNotFoundException, EmployeeNotFoundException;
 
     List<Employee> getEmployeeByGender(String gender);
 

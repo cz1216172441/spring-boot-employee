@@ -2,7 +2,6 @@ package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
-import com.thoughtworks.springbootemployee.exception.CompanyIdNotFoundException;
 import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +16,7 @@ public interface CompanyService {
 
     void addCompany(Company company);
 
-    void modify(Company company) throws CompanyIdNotFoundException;
+    void modify(Company company) throws CompanyNotFoundException;
 
     void deleteCompany(Integer id);
 

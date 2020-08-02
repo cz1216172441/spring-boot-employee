@@ -4,7 +4,6 @@ import com.thoughtworks.springbootemployee.dto.EmployeeRequestDto;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
-import com.thoughtworks.springbootemployee.exception.EmployeeIdNotFoundException;
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
@@ -57,9 +56,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void modifyEmployee(EmployeeRequestDto employeeRequestDto) throws EmployeeIdNotFoundException, CompanyNotFoundException, EmployeeNotFoundException {
+    public void modifyEmployee(EmployeeRequestDto employeeRequestDto) throws CompanyNotFoundException, EmployeeNotFoundException {
         if (Objects.isNull(employeeRequestDto.getId())) {
-            throw new EmployeeIdNotFoundException();
+            throw new EmployeeNotFoundException();
         }
         Optional<Employee> employee = employeeRepository.findById(employeeRequestDto.getId());
         if (employee.isPresent()) {
