@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -105,5 +107,26 @@ public class EmployeeIntegrationTest {
         List<Employee> employees = employeeRepository.findByGender("male");
         //then
         assertEquals(1, employees.size());
+    }
+
+    @Test
+    void should_return_page_with_content_1_employee_when_get_paging_employees_given_employee_2_and_page_1_and_size_1() throws Exception {
+        //given
+        Company company = companyRepository.save(new Company(null, "tw"));
+        Employee employee1 = new Employee(null, "roy", 18, "male");
+        employee1.setCompany(company);
+        Employee employee2 = new Employee(null, "ang", 18, "female");
+        employee2.setCompany(company);
+        employeeRepository.save(employee1);
+        employeeRepository.save(employee2);
+        //when
+        mockMvc.perform(get("/employees?page=1&size=1").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("totalElements").value(2))
+                .andExpect(jsonPath("totalPages").value(2))
+                .andExpect(jsonPath("last").value(true))
+                .andExpect(jsonPath("size").value(1))
+                .andExpect(jsonPath("number").value(1))
+                .andExpect(jsonPath("content.[0].name").value("ang"));
     }
 }
