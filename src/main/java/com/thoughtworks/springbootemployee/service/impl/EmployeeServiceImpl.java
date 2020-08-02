@@ -45,12 +45,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void addEmployee(EmployeeRequestDto employeeRequestDto) throws CompanyNotFoundException {
-        Integer companyId = employeeRequestDto.getCompanyId();
-        Company company = companyRepository.findById(companyId).orElseThrow(CompanyNotFoundException::new);
-        Employee employee = EmployeeRequestDtoMapper.toEntity(employeeRequestDto);
-        employee.setCompany(company);
-        employeeRepository.save(employee);
+        saveEmployee(employeeRequestDto);
     }
+
 
     @Override
     public void deleteEmployee(Integer id) throws EmployeeNotFoundException {
@@ -68,7 +65,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         Optional<Employee> employee = employeeRepository.findById(employeeRequestDto.getId());
         if (employee.isPresent()) {
-            addEmployee(employeeRequestDto);
+            saveEmployee(employeeRequestDto);
         } else {
             throw new EmployeeNotFoundException();
         }
@@ -82,5 +79,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Page<Employee> getPagingEmployees(Pageable pageable) {
         return employeeRepository.findAll(pageable);
+    }
+
+    private void saveEmployee(EmployeeRequestDto employeeRequestDto) throws CompanyNotFoundException {
+        Integer companyId = employeeRequestDto.getCompanyId();
+        Company company = companyRepository.findById(companyId).orElseThrow(CompanyNotFoundException::new);
+        Employee employee = EmployeeRequestDtoMapper.toEntity(employeeRequestDto);
+        employee.setCompany(company);
+        employeeRepository.save(employee);
     }
 }
