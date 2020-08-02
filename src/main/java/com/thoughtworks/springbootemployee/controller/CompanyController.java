@@ -4,6 +4,7 @@ import com.thoughtworks.springbootemployee.dto.CompanyRequestDto;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.ArgumentNotValidException;
+import com.thoughtworks.springbootemployee.exception.CompanyNameExistedException;
 import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
 import com.thoughtworks.springbootemployee.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,8 @@ public class CompanyController {
     }
 
     @PostMapping
-    public void addCompany(@RequestBody CompanyRequestDto companyRequestDto) throws ArgumentNotValidException {
+    public void addCompany(@RequestBody CompanyRequestDto companyRequestDto)
+            throws ArgumentNotValidException, CompanyNameExistedException {
         if (Objects.nonNull(companyRequestDto.getCompanyId())) {
             throw new ArgumentNotValidException("companyId: must be null");
         }
@@ -47,7 +49,7 @@ public class CompanyController {
 
     @PutMapping
     public void modifyCompany(@RequestBody @Validated CompanyRequestDto companyRequestDto)
-            throws CompanyNotFoundException, ArgumentNotValidException {
+            throws CompanyNotFoundException, ArgumentNotValidException, CompanyNameExistedException {
         if (Objects.isNull(companyRequestDto.getCompanyId())) {
             throw new ArgumentNotValidException("companyId: must not be null");
         }

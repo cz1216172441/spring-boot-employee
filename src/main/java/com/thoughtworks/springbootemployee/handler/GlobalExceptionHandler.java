@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.handler;
 
 import com.thoughtworks.springbootemployee.exception.ArgumentNotValidException;
+import com.thoughtworks.springbootemployee.exception.CompanyNameExistedException;
 import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,15 @@ public class GlobalExceptionHandler {
     public @ResponseBody
     String employeeNotFoundExceptionHandler() {
         return "employee not found";
+    }
+
+    @ExceptionHandler(CompanyNameExistedException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public @ResponseBody
+    List<String> companyNameExistedExceptionHandler(CompanyNameExistedException e) {
+        List<String> errors = new ArrayList<>();
+        errors.add(e.getMessage());
+        return errors;
     }
 
     @ExceptionHandler(ArgumentNotValidException.class)

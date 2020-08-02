@@ -92,8 +92,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     private void saveEmployee(EmployeeRequestDto employeeRequestDto) throws CompanyNotFoundException {
         Integer companyId = employeeRequestDto.getCompanyId();
         Company company = companyRepository.findById(companyId).orElseThrow(CompanyNotFoundException::new);
+
         Employee employee = EmployeeRequestDtoMapper.toEntity(employeeRequestDto);
         employee.setCompany(company);
+
         employeeRepository.save(employee);
     }
 }
