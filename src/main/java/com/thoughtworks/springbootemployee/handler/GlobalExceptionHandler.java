@@ -6,36 +6,30 @@ import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(CompanyNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public @ResponseBody
-    String companyNotFoundExceptionHandler() {
+    public String companyNotFoundExceptionHandler() {
         return "company not found";
     }
 
     @ExceptionHandler(EmployeeNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public @ResponseBody
-    String employeeNotFoundExceptionHandler() {
+    public String employeeNotFoundExceptionHandler() {
         return "employee not found";
     }
 
     @ExceptionHandler(CompanyNameExistedException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public @ResponseBody
-    List<String> companyNameExistedExceptionHandler(CompanyNameExistedException e) {
+    public List<String> companyNameExistedExceptionHandler(CompanyNameExistedException e) {
         List<String> errors = new ArrayList<>();
         errors.add(e.getMessage());
         return errors;
@@ -43,8 +37,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public @ResponseBody
-    List<String> argumentNotValidExceptionHandler(ArgumentNotValidException e) {
+    public List<String> argumentNotValidExceptionHandler(ArgumentNotValidException e) {
         List<String> errors = new ArrayList<>();
         errors.add(e.getMessage());
         return errors;
@@ -52,8 +45,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public @ResponseBody
-    List<String> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+    public List<String> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         return e.getBindingResult()
                 .getFieldErrors()
                 .stream()
