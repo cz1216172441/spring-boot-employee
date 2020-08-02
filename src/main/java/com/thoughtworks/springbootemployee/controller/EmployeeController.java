@@ -2,7 +2,7 @@ package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.dto.EmployeeRequestDto;
 import com.thoughtworks.springbootemployee.dto.EmployeeResponseDto;
-import com.thoughtworks.springbootemployee.entity.Employee;
+import com.thoughtworks.springbootemployee.exception.ArgumentNotValidException;
 import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/employees")
@@ -47,7 +48,11 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public void addEmployee(@RequestBody @Validated EmployeeRequestDto employeeRequestDto) throws CompanyNotFoundException {
+    public void addEmployee(@RequestBody @Validated EmployeeRequestDto employeeRequestDto)
+            throws CompanyNotFoundException, ArgumentNotValidException {
+        if (Objects.nonNull(employeeRequestDto.getId())) {
+            throw new ArgumentNotValidException("id: must be null");
+        }
         employeeService.addEmployee(employeeRequestDto);
     }
 
@@ -57,7 +62,11 @@ public class EmployeeController {
     }
 
     @PutMapping
-    public void modifyEmployee(@RequestBody @Validated EmployeeRequestDto employeeRequestDto) throws CompanyNotFoundException, EmployeeNotFoundException {
+    public void modifyEmployee(@RequestBody @Validated EmployeeRequestDto employeeRequestDto)
+            throws CompanyNotFoundException, EmployeeNotFoundException, ArgumentNotValidException {
+        if (Objects.isNull(employeeRequestDto.getId())) {
+            throw new ArgumentNotValidException("id: must not be null");
+        }
         employeeService.modifyEmployee(employeeRequestDto);
     }
 
