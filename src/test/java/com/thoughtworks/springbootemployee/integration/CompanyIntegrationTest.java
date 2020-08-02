@@ -59,11 +59,20 @@ public class CompanyIntegrationTest {
         companyRepository.save(new Company(null, "tw"));
         companyRepository.save(new Company(null, "oocl"));
         //when
+        //then
         mockMvc.perform(get("/companies").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("[0].name").value("tw"))
                 .andExpect(jsonPath("[1].name").value("oocl"));
     }
 
-
+    @Test
+    void should_return_1_company_with_id_1_when_get_companies_by_id_given_1_company_with_id_1() throws Exception {
+        //given
+        companyRepository.save(new Company(null, "tw"));
+        //when
+        mockMvc.perform(get("/companies/1").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("name").value("tw"));
+    }
 }
