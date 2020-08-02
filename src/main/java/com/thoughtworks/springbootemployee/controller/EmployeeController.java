@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.dto.EmployeeRequestDto;
+import com.thoughtworks.springbootemployee.dto.EmployeeResponseDto;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
@@ -25,22 +26,22 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<Employee> getAllEmployees() {
+    public List<EmployeeResponseDto> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
 
     @GetMapping("/{id}")
-    public Employee getEmployeeById(@PathVariable Integer id) throws EmployeeNotFoundException {
+    public EmployeeResponseDto getEmployeeById(@PathVariable Integer id) throws EmployeeNotFoundException {
         return employeeService.getEmployeeById(id);
     }
 
     @GetMapping(params = "gender")
-    public List<Employee> getEmployeeByGender(String gender) {
+    public List<EmployeeResponseDto> getEmployeeByGender(String gender) {
         return employeeService.getEmployeeByGender(gender);
     }
 
     @GetMapping(params = {"page", "size"})
-    public Page<Employee> getPagingEmployees(@PageableDefault Pageable pageable) {
+    public Page<EmployeeResponseDto> getPagingEmployees(@PageableDefault Pageable pageable) {
         return employeeService.getPagingEmployees(pageable);
     }
 

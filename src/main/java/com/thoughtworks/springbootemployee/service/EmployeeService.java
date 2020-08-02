@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.dto.EmployeeRequestDto;
+import com.thoughtworks.springbootemployee.dto.EmployeeResponseDto;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
@@ -11,9 +12,9 @@ import java.util.List;
 
 public interface EmployeeService {
 
-    List<Employee> getAllEmployees();
+    List<EmployeeResponseDto> getAllEmployees();
 
-    Employee getEmployeeById(Integer id) throws EmployeeNotFoundException;
+    EmployeeResponseDto getEmployeeById(Integer id) throws EmployeeNotFoundException;
 
     void addEmployee(EmployeeRequestDto employeeRequestDto) throws CompanyNotFoundException;
 
@@ -21,7 +22,7 @@ public interface EmployeeService {
 
     void modifyEmployee(EmployeeRequestDto employeeRequestDto) throws CompanyNotFoundException, EmployeeNotFoundException;
 
-    List<Employee> getEmployeeByGender(String gender);
+    List<EmployeeResponseDto> getEmployeeByGender(String gender);
 
-    Page<Employee> getPagingEmployees(Pageable pageable);
+    Page<EmployeeResponseDto> getPagingEmployees(Pageable pageable);
 }

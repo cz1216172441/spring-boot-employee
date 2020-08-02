@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee;
 
+import com.thoughtworks.springbootemployee.dto.EmployeeResponseDto;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
@@ -26,16 +27,16 @@ public class EmployeeTest {
     private EmployeeServiceImpl employeeService;
 
     @Test
-    void should_return_a_employee_when_get_employee_given_a_employee() throws EmployeeNotFoundException {
+    void should_return_a_employee_response_dto_when_get_employee_given_a_employee() throws EmployeeNotFoundException {
         // given
         Integer id = 1;
         Employee employee = new Employee();
         employee.setId(id);
         // when
         when(employeeRepository.findById(id)).thenReturn(Optional.of(employee));
-        Employee actualEmployee = employeeService.getEmployeeById(id);
+        EmployeeResponseDto actualEmployee = employeeService.getEmployeeById(id);
         // then
-        assertEquals(employee, actualEmployee);
+        assertEquals(employee.getId(), actualEmployee.getId());
     }
 
     @Test
