@@ -14,6 +14,17 @@ public class EmployeeRequestDto {
 
     private Integer companyId;
 
+    public EmployeeRequestDto() {
+    }
+
+    public EmployeeRequestDto(Integer id, String name, Integer age, String gender, Integer companyId) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.companyId = companyId;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -54,18 +65,4 @@ public class EmployeeRequestDto {
         this.companyId = companyId;
     }
 
-    public Employee toEntity() {
-        return new Employee(this.id, this.name, this.age, this.gender);
-    }
-
-    @Override
-    public String toString() {
-        return "EmployeeRequestDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", gender='" + gender + '\'' +
-                ", companyId=" + companyId +
-                '}';
-    }
 }
