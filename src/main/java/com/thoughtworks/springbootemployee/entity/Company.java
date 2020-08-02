@@ -19,6 +19,11 @@ public class Company {
     public Company() {
     }
 
+    public Company(Integer companyId, String name) {
+        this.companyId = companyId;
+        this.name = name;
+    }
+
     public Integer getCompanyId() {
         return companyId;
     }
