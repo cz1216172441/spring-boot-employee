@@ -68,7 +68,7 @@ public class CompanyIntegrationTest {
     }
 
     @Test
-    void should_return_1_company_with_id_1_when_get_companies_by_id_given_1_company_with_id_1() throws Exception {
+    void should_return_1_company_with_id_1_when_get_company_by_id_given_1_company_with_id_1() throws Exception {
         //given
         companyRepository.save(new Company(null, "tw"));
         //when
@@ -78,7 +78,7 @@ public class CompanyIntegrationTest {
     }
 
     @Test
-    void should_return_1_modified_company_when_modify_companies_given_1_company_and_1_company_request_dto() throws Exception {
+    void should_return_1_modified_company_when_modify_company_given_1_company_and_1_company_request_dto() throws Exception {
         //given
         companyRepository.save(new Company(null, "tw"));
         String jsonContent = "{\n" +
@@ -92,5 +92,17 @@ public class CompanyIntegrationTest {
         //then
         assertNotNull(company);
         assertEquals("tw2", company.getName());
+    }
+
+    @Test
+    void should_return_companies_and_size_is_0_when_delete_company_by_id_given_1_company_with_company_id_1() throws Exception {
+        //given
+        companyRepository.save(new Company(null, "tw"));
+        //when
+        mockMvc.perform(delete("/companies/1").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        List<Company> companies = companyRepository.findAll();
+        //then
+        assertEquals(0, companies.size());
     }
 }
