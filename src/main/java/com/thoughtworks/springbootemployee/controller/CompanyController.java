@@ -35,7 +35,7 @@ public class CompanyController {
     }
 
     @PostMapping
-    public void addCompany(@RequestBody CompanyRequestDto companyRequestDto){
+    public void addCompany(@RequestBody CompanyRequestDto companyRequestDto) {
         companyService.addCompany(companyRequestDto);
     }
 
@@ -45,7 +45,7 @@ public class CompanyController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCompany(@PathVariable Integer id){
+    public void deleteCompany(@PathVariable Integer id) {
         companyService.deleteCompany(id);
     }
 
