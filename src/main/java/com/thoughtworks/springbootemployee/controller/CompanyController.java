@@ -40,8 +40,8 @@ public class CompanyController {
     }
 
     @PutMapping
-    public void modifyCompany(Company company) throws CompanyNotFoundException {
-        companyService.modify(company);
+    public void modifyCompany(@RequestBody CompanyRequestDto companyRequestDto) throws CompanyNotFoundException {
+        companyService.modify(companyRequestDto);
     }
 
     @DeleteMapping("/{id}")

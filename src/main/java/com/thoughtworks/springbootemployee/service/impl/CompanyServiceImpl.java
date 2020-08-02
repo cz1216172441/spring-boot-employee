@@ -42,8 +42,9 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public void modify(Company company) throws CompanyNotFoundException {
-        if (company.getCompanyId() == null) {
+    public void modify(CompanyRequestDto companyRequestDto) throws CompanyNotFoundException {
+        Company company = CompanyRequestDtoMapper.toEntity(companyRequestDto);
+        if (!companyRepository.findById(company.getCompanyId()).isPresent()) {
             throw new CompanyNotFoundException();
         }
         companyRepository.save(company);
