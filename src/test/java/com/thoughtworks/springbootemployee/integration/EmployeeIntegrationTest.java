@@ -15,8 +15,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -144,4 +146,27 @@ public class EmployeeIntegrationTest {
         assertEquals(0, employees.size());
     }
 
+    @Test
+    void should_return_1_employee_when_modify_employee_given_1_employee_request_dto() throws Exception {
+        //given
+        Company company = companyRepository.save(new Company(null, "tw"));
+        Employee employee = new Employee(null, "chengcheng", 18, "male");
+        employee.setCompany(company);
+        employeeRepository.save(employee);
+        String jsonContent = "{\n" +
+                "    \"id\": 1,\n" +
+                "    \"name\": \"dong\",\n" +
+                "    \"age\": 18,\n" +
+                "    \"gender\": \"male\",\n" +
+                "    \"companyId\": 1\n" +
+                "}";
+        //when
+        mockMvc.perform(put("/employees").contentType(MediaType.APPLICATION_JSON).content(jsonContent))
+                .andExpect(status().isOk());
+        Employee actualEmployee = employeeRepository.findById(1).orElse(null);
+        //then
+        assertNotNull(actualEmployee);
+        assertEquals("dong", actualEmployee.getName());
+
+    }
 }
