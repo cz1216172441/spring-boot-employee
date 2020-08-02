@@ -12,6 +12,13 @@ public class EmployeeResponseDto {
 
     private String companyName;
 
+    public EmployeeResponseDto(Integer id, String name, Integer age, String gender) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
+
     public Integer getId() {
         return id;
     }
