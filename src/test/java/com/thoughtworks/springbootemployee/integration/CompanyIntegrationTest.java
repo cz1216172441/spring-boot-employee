@@ -133,7 +133,7 @@ public class CompanyIntegrationTest {
         employeeRepository.save(employee1);
         employeeRepository.save(employee2);
         // when
-        mockMvc.perform(get("/companies/1/employees").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(String.format("/companies/%d/employees", company.getCompanyId())).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("[0].name").value("roy"))
                 .andExpect(jsonPath("[1].name").value("max"));
