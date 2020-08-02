@@ -1,17 +1,25 @@
 package com.thoughtworks.springbootemployee.dto;
 
-import com.thoughtworks.springbootemployee.entity.Employee;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class EmployeeRequestDto {
 
     private Integer id;
 
+    @NotBlank
+    @Size(min = 1, max = 32)
     private String name;
 
+    @NotNull
+    @Min(value = 1)
     private Integer age;
 
     private String gender;
 
+    @NotNull
     private Integer companyId;
 
     public EmployeeRequestDto() {

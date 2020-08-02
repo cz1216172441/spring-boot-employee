@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public void addEmployee(@RequestBody EmployeeRequestDto employeeRequestDto) throws CompanyNotFoundException {
+    public void addEmployee(@RequestBody @Validated EmployeeRequestDto employeeRequestDto) throws CompanyNotFoundException {
         employeeService.addEmployee(employeeRequestDto);
     }
 
@@ -56,7 +57,7 @@ public class EmployeeController {
     }
 
     @PutMapping
-    public void modifyEmployee(@RequestBody EmployeeRequestDto employeeRequestDto) throws CompanyNotFoundException, EmployeeNotFoundException {
+    public void modifyEmployee(@RequestBody @Validated EmployeeRequestDto employeeRequestDto) throws CompanyNotFoundException, EmployeeNotFoundException {
         employeeService.modifyEmployee(employeeRequestDto);
     }
 
