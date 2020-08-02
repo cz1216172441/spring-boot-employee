@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.controller;
 
+import com.thoughtworks.springbootemployee.dto.CompanyRequestDto;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
@@ -34,8 +35,8 @@ public class CompanyController {
     }
 
     @PostMapping
-    public void addCompany(Company company){
-        companyService.addCompany(company);
+    public void addCompany(@RequestBody CompanyRequestDto companyRequestDto){
+        companyService.addCompany(companyRequestDto);
     }
 
     @PutMapping

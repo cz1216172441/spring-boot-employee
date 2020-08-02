@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.service;
 
+import com.thoughtworks.springbootemployee.dto.CompanyRequestDto;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
@@ -14,7 +15,7 @@ public interface CompanyService {
 
     Company getCompanyById(Integer id) throws CompanyNotFoundException;
 
-    void addCompany(Company company);
+    void addCompany(CompanyRequestDto companyRequestDto);
 
     void modify(Company company) throws CompanyNotFoundException;
 

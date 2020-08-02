@@ -5,6 +5,9 @@ public class CompanyRequestDto {
 
     private String name;
 
+    public CompanyRequestDto() {
+    }
+
     public CompanyRequestDto(Integer companyId, String name) {
         this.companyId = companyId;
         this.name = name;

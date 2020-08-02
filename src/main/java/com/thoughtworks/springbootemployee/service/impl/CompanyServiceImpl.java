@@ -1,5 +1,7 @@
 package com.thoughtworks.springbootemployee.service.impl;
 
+import com.thoughtworks.springbootemployee.dto.CompanyRequestDto;
+import com.thoughtworks.springbootemployee.dto.mapper.CompanyRequestDtoMapper;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
@@ -33,7 +35,9 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public void addCompany(Company company) {
+    public void addCompany(CompanyRequestDto companyRequestDto) {
+        Company company = CompanyRequestDtoMapper.toEntity(companyRequestDto);
+        company.setCompanyId(null);
         companyRepository.save(company);
     }
 
