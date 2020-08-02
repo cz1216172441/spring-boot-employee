@@ -105,4 +105,20 @@ public class CompanyIntegrationTest {
         //then
         assertEquals(0, companies.size());
     }
+
+    @Test
+    void should_return_page_with_content_1_company_when_get_paging_companies_given_companies_2_and_page_1_and_size_1() throws Exception {
+        // given
+        companyRepository.save(new Company(null, "tw"));
+        companyRepository.save(new Company(null, "oocl"));
+        // when
+        mockMvc.perform(get("/companies?page=1&size=1").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("totalElements").value(2))
+                .andExpect(jsonPath("totalPages").value(2))
+                .andExpect(jsonPath("last").value(true))
+                .andExpect(jsonPath("size").value(1))
+                .andExpect(jsonPath("number").value(1))
+                .andExpect(jsonPath("content.[0].name").value("oocl"));
+    }
 }
