@@ -68,6 +68,7 @@ public class EmployeeIntegrationTest {
         employeeRepository.save(employee1);
         employeeRepository.save(employee2);
         //when
+        //then
         mockMvc.perform(get("/employees").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("[0].name").value("roy"))
@@ -81,9 +82,28 @@ public class EmployeeIntegrationTest {
         Employee employee = new Employee(null, "chengcheng", 18, "male");
         employee.setCompany(company);
         employeeRepository.save(employee);
-        //given
+        //when
+        //then
         mockMvc.perform(get("/employees/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("name").value("chengcheng"));
+    }
+
+    @Test
+    void should_return_1_employee_with_gender_male_when_get_employee_by_gender_given_a_male_employee_and_a_female_employee() throws Exception {
+        //given
+        Company company = companyRepository.save(new Company(null, "tw"));
+        Employee employee1 = new Employee(null, "roy", 18, "male");
+        employee1.setCompany(company);
+        Employee employee2 = new Employee(null, "ang", 18, "female");
+        employee2.setCompany(company);
+        employeeRepository.save(employee1);
+        employeeRepository.save(employee2);
+        //when
+        mockMvc.perform(get("/employees?gender=male").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        List<Employee> employees = employeeRepository.findByGender("male");
+        //then
+        assertEquals(1, employees.size());
     }
 }
