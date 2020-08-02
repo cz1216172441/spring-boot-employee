@@ -42,14 +42,15 @@ public class EmployeeIntegrationTest {
     @Test
     void should_return_1_employee_when_add_employee_given_1_employee_request_dto() throws Exception {
         //given
-        companyRepository.save(new Company(null, "tw"));
+        Company company = companyRepository.save(new Company(null, "tw"));
         String jsonContent = "{\n" +
                 "    \"name\": \"dong\",\n" +
                 "    \"age\": 108,\n" +
                 "    \"gender\": \"female\",\n" +
-                "    \"companyId\": 1\n" +
+                "    \"companyId\": %d\n" +
                 "}";
-        mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).content(jsonContent))
+        mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
+                .content(String.format(jsonContent, company.getCompanyId())))
                 .andExpect(status().isOk());
         //when
         List<Employee> employees = employeeRepository.findAll();
@@ -81,10 +82,10 @@ public class EmployeeIntegrationTest {
         Company company = companyRepository.save(new Company(null, "tw"));
         Employee employee = new Employee(null, "chengcheng", 18, "male");
         employee.setCompany(company);
-        employeeRepository.save(employee);
+        Employee actualEmployee = employeeRepository.save(employee);
         //when
         //then
-        mockMvc.perform(get("/employees/1").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/employees/" + actualEmployee.getId()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("name").value("chengcheng"));
     }
@@ -132,9 +133,9 @@ public class EmployeeIntegrationTest {
         Company company = companyRepository.save(new Company(null, "tw"));
         Employee employee = new Employee(null, "chengcheng", 18, "male");
         employee.setCompany(company);
-        employeeRepository.save(employee);
+        Employee savedEmployee = employeeRepository.save(employee);
         //when
-        mockMvc.perform(delete("/employees/1").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete("/employees/" + savedEmployee.getId()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         List<Employee> employees = employeeRepository.findAll();
         //then
@@ -147,21 +148,21 @@ public class EmployeeIntegrationTest {
         Company company = companyRepository.save(new Company(null, "tw"));
         Employee employee = new Employee(null, "chengcheng", 18, "male");
         employee.setCompany(company);
-        employeeRepository.save(employee);
+        Employee savedEmployee = employeeRepository.save(employee);
         String jsonContent = "{\n" +
-                "    \"id\": 1,\n" +
+                "    \"id\": %d,\n" +
                 "    \"name\": \"dong\",\n" +
                 "    \"age\": 18,\n" +
                 "    \"gender\": \"male\",\n" +
-                "    \"companyId\": 1\n" +
+                "    \"companyId\": %d\n" +
                 "}";
         //when
-        mockMvc.perform(put("/employees").contentType(MediaType.APPLICATION_JSON).content(jsonContent))
+        mockMvc.perform(put("/employees").contentType(MediaType.APPLICATION_JSON)
+                .content(String.format(jsonContent, savedEmployee.getId(), company.getCompanyId())))
                 .andExpect(status().isOk());
-        Employee actualEmployee = employeeRepository.findById(1).orElse(null);
+        Employee actualEmployee = employeeRepository.findById(savedEmployee.getId()).orElse(null);
         //then
         assertNotNull(actualEmployee);
         assertEquals("dong", actualEmployee.getName());
-
     }
 }
