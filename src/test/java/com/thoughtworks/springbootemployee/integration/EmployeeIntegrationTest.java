@@ -101,10 +101,8 @@ public class EmployeeIntegrationTest {
         employeeRepository.save(employee2);
         //when
         mockMvc.perform(get("/employees?gender=male").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-        List<Employee> employees = employeeRepository.findByGender("male");
-        //then
-        assertEquals(1, employees.size());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("[0].name").value("roy"));
     }
 
     @Test
