@@ -47,7 +47,7 @@ public class CompanyIntegrationTest {
                 "}";
         //when
         mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(jsonContent))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
         List<Company> companies = companyRepository.findAll();
         // then
         assertEquals(1, companies.size());

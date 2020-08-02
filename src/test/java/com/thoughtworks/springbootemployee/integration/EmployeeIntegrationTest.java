@@ -51,7 +51,7 @@ public class EmployeeIntegrationTest {
                 "}";
         mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
                 .content(String.format(jsonContent, company.getCompanyId())))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
         //when
         List<Employee> employees = employeeRepository.findAll();
         //then
