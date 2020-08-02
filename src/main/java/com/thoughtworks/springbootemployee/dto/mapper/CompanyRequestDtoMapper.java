@@ -5,6 +5,6 @@ import com.thoughtworks.springbootemployee.entity.Company;
 
 public class CompanyRequestDtoMapper {
     public static Company toEntity(CompanyRequestDto companyRequestDto) {
-        return new Company();
+        return new Company(companyRequestDto.getCompanyId(), companyRequestDto.getName());
     }
 }
