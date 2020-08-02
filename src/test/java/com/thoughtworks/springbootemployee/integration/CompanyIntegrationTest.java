@@ -15,7 +15,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -50,4 +52,18 @@ public class CompanyIntegrationTest {
         // then
         assertEquals(1, companies.size());
     }
+
+    @Test
+    void should_return_2_company_when_get_all_companies_given_2_company() throws Exception {
+        //given
+        companyRepository.save(new Company(null, "tw"));
+        companyRepository.save(new Company(null, "oocl"));
+        //when
+        mockMvc.perform(get("/companies").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("[0].name").value("tw"))
+                .andExpect(jsonPath("[1].name").value("oocl"));
+    }
+
+
 }
