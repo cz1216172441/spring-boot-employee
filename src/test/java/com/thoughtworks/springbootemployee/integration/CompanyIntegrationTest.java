@@ -121,4 +121,21 @@ public class CompanyIntegrationTest {
                 .andExpect(jsonPath("number").value(1))
                 .andExpect(jsonPath("content.[0].name").value("oocl"));
     }
+
+    @Test
+    void should_return_2_employee_when_get_company_employees_given_company_with_company_id_1() throws Exception {
+        // given
+        Company company = companyRepository.save(new Company(null, "oocl"));
+        Employee employee1 = new Employee(null, "roy", 18, "male");
+        employee1.setCompany(company);
+        Employee employee2 = new Employee(null, "max", 18, "male");
+        employee2.setCompany(company);
+        employeeRepository.save(employee1);
+        employeeRepository.save(employee2);
+        // when
+        mockMvc.perform(get("/companies/1/employees").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("[0].name").value("roy"))
+                .andExpect(jsonPath("[1].name").value("max"));
+    }
 }
