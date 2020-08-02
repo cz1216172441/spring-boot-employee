@@ -66,9 +66,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void modifyEmployee(EmployeeRequestDto employeeRequestDto) throws CompanyNotFoundException, EmployeeNotFoundException {
-        if (Objects.isNull(employeeRequestDto.getId())) {
-            throw new EmployeeNotFoundException();
-        }
         Optional<Employee> employee = employeeRepository.findById(employeeRequestDto.getId());
         if (employee.isPresent()) {
             saveEmployee(employeeRequestDto);
