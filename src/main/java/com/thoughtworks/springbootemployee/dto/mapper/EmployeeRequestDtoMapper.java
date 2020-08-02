@@ -5,6 +5,9 @@ import com.thoughtworks.springbootemployee.entity.Employee;
 
 public class EmployeeRequestDtoMapper {
     public static Employee toEntity(EmployeeRequestDto employeeRequestDto) {
-        return new Employee();
+        return new Employee(employeeRequestDto.getId(),
+                employeeRequestDto.getName(),
+                employeeRequestDto.getAge(),
+                employeeRequestDto.getGender());
     }
 }
