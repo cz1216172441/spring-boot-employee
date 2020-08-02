@@ -50,7 +50,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteEmployee(@PathVariable Integer id) {
+    public void deleteEmployee(@PathVariable Integer id) throws EmployeeNotFoundException {
         employeeService.deleteEmployee(id);
     }
 

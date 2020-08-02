@@ -17,7 +17,7 @@ public interface EmployeeService {
 
     void addEmployee(EmployeeRequestDto employeeRequestDto) throws CompanyNotFoundException;
 
-    void deleteEmployee(Integer id);
+    void deleteEmployee(Integer id) throws EmployeeNotFoundException;
 
     void modifyEmployee(EmployeeRequestDto employeeRequestDto) throws CompanyNotFoundException, EmployeeNotFoundException;
 
