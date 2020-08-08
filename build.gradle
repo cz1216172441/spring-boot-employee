@@ -19,10 +19,10 @@ apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-plugins {
-    id 'java'
-    id 'jacoco'
-}
+group = 'com.thoughtworks'
+version = '0.0.1-SNAPSHOT'
+description = 'spring-boot-employee'
+sourceCompatibility = '1.8'
 
 repositories {
     maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
@@ -46,11 +46,6 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
     testCompile "org.mockito:mockito-core:3.4.0"
 }
-
-group = 'com.thoughtworks'
-version = '0.0.1-SNAPSHOT'
-description = 'spring-boot-employee'
-sourceCompatibility = '1.8'
 
 test {
     useJUnitPlatform()
